@@ -67,3 +67,6 @@ class Autoencoder(object):
 						validation_data=(x_test, x_test),
 						verbose = 2
 						)
+
+	def predict(self, input_img):
+		return self.autoencoder.predict(input_img)

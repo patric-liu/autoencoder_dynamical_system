@@ -7,7 +7,7 @@ training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
 
 # only get x inputs
 training_data, test_data = np.array(list(training_data))[:,0], np.array(list(test_data))[:,0]
-training_data, test_data = list(map(lambda x: np.squeeze(x), training_data)), list(map(lambda x: np.squeeze(x), test_data))
+training_data, test_data = np.array(list(map(lambda x: np.squeeze(x), training_data))), np.array(list(map(lambda x: np.squeeze(x), test_data)))
 print("processed data")
 
 # [ 784, 400, L50, 400, 784]
