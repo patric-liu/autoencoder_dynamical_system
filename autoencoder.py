@@ -10,7 +10,7 @@ from keras.models import Model
 
 class Autoencoder(object):
 
-	def __init__(self, enc_sizes, dec_sizes, latent_size):
+	def __init__(self, enc_sizes, latent_size, dec_sizes):
 		# encoder shape, [input - latent)
 		self.enc_sizes = enc_sizes
 		# decoder shape, [latent - output]
@@ -56,7 +56,7 @@ class Autoencoder(object):
 		self.decoder = Model(latent_layer_placeholder,decoder_layers_lat[-1])
 
 
-	def train(self, x_train, x_test, epochs=10, batch_size=100):
+	def train(self, x_train, x_test, epochs=10, batch_size=100, verbose=2):
 		# x_train is inputs
 		# x_test is outputs
 		self.autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
@@ -65,7 +65,7 @@ class Autoencoder(object):
 						batch_size = batch_size,
 						shuffle=True,
 						validation_data=(x_test, x_test),
-						verbose = 2
+						verbose = verbose,
 						)
 
 	def predict(self, input_img):
