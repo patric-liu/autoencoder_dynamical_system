@@ -34,8 +34,9 @@ class Autoencoder(object):
 
 		# creates decoder hidden layers and does not link them
 		decoder_layers_ = []
-		for size in dec_sizes:
+		for size in dec_sizes[:-1]:
 			decoder_layers_.append(Dense(size, activation='relu'))
+		decoder_layers_.append(Dense(dec_sizes[-1], activation='sigmoid'))
 
 		# links decoder hidden layers to encoder
 		decoder_layers_enc = [decoder_layers_[0](latent_layer)]
@@ -59,7 +60,6 @@ class Autoencoder(object):
 		# x_train is inputs
 		# x_test is outputs
 		self.autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
-		print("finished compiling autoencoder")
 		self.autoencoder.fit(x_train, x_train,
 						epochs = epochs,
 						batch_size = batch_size,
